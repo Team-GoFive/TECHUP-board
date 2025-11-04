@@ -9,7 +9,6 @@ import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDate;
 
-@Table("\"user\"")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
