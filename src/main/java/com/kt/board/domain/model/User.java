@@ -11,7 +11,6 @@ import java.time.LocalDate;
 
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
 public class User {
     private Long id;
     private String name;
@@ -22,4 +21,32 @@ public class User {
     private UserRole role;
     private LocalDate createdAt;
     private LocalDate updatedAt;
+
+    private User(Long id,
+                 String name,
+                 String password,
+                 Gender gender,
+                 String email,
+                 int age,
+                 UserRole role) {
+        this.id = id;
+        this.name = name;
+        this.password = password;
+        this.gender = gender;
+        this.email = email;
+        this.age = age;
+        this.role = role;
+        this.createdAt = LocalDate.now();
+        this.updatedAt = LocalDate.now();
+    }
+
+    public static User create(final Long id,
+                              final String name,
+                              final String password,
+                              final Gender gender,
+                              final String email,
+                              final int age,
+                              final UserRole role) {
+        return new User(id, name, password, gender, email, age, role);
+    }
 }
