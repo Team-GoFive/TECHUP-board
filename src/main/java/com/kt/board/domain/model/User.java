@@ -13,7 +13,9 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
+    private Long id;
     private String name;
+    private String password;
     private Gender gender;
     private String email;
     private int age;
