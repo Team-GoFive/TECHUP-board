@@ -2,10 +2,8 @@ package com.kt.board.domain.model;
 
 import com.kt.board.constants.Gender;
 import com.kt.board.constants.UserRole;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDate;
 
