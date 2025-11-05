@@ -11,8 +11,8 @@ public class UserRepository {
     private final JdbcTemplate jdbcTemplate;
 
     public void save(User user) {
-        var sql = """
-			INSERT INTO \"user\" (id,
+				var sql = """
+			INSERT INTO user (id,
 			                      name,
                                   password,
                                   gender,
@@ -24,22 +24,22 @@ public class UserRepository {
                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
 			""";
 
-        jdbcTemplate.update(
-                sql,
-                user.getId(),
-                user.getName(),
-                user.getPassword(),
-                user.getGender().name(),
-                user.getEmail(),
-                user.getAge(),
-                user.getRole().name(),
-                user.getCreatedAt(),
-                user.getUpdatedAt()
-        );
+				jdbcTemplate.update(
+					sql,
+					user.getId(),
+					user.getName(),
+					user.getPassword(),
+					user.getGender().name(),
+					user.getEmail(),
+					user.getAge(),
+					user.getRole().name(),
+					user.getCreatedAt(),
+					user.getUpdatedAt()
+				);
     }
 
     public Long selectMaxId() {
-        var sql = "SELECT MAX(id) FROM \"user\"";
+        var sql = "SELECT MAX(id) FROM user";
         var maxId = jdbcTemplate.queryForObject(sql, Long.class);
         return maxId == null ? 1L : maxId;
     }
