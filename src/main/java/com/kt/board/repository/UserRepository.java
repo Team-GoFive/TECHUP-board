@@ -12,7 +12,7 @@ public class UserRepository {
 
     public void save(User user) {
         var sql = """
-			INSERT INTO \"user\" (id,
+			INSERT INTO user (id,
 			                      name,
                                   password,
                                   gender,
@@ -39,7 +39,7 @@ public class UserRepository {
     }
 
     public Long selectMaxId() {
-        var sql = "SELECT MAX(id) FROM \"user\"";
+        var sql = "SELECT MAX(id) FROM user";
         var maxId = jdbcTemplate.queryForObject(sql, Long.class);
         return maxId == null ? 1L : maxId;
     }
