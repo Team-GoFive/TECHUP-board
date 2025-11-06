@@ -29,4 +29,9 @@ public class Board extends BaseEntity {
         return new Board(name);
     }
 
+		public void update(String name, BoardStatus status) {
+			this.name = name;
+			this.status = status;
+		}
+
 }

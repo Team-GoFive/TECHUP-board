@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kt.board.domain.dto.request.BoardCreateRequest;
+import com.kt.board.domain.dto.request.BoardUpdateRequest;
 import com.kt.board.domain.dto.request.PostCreateRequest;
 import com.kt.board.service.BoardService;
 import com.kt.board.service.PostService;
@@ -33,5 +34,11 @@ public class BoardController {
 	@ResponseStatus(HttpStatus.OK)
 	public void create(@PathVariable Long boardId, @RequestBody PostCreateRequest request) {
 		postService.create(boardId, request);
+	}
+
+	@PutMapping("/{boardId}")
+	@ResponseStatus(HttpStatus.OK)
+	public void update(@PathVariable Long boardId, @RequestBody BoardUpdateRequest request) {
+		boardService.update(boardId, request);
 	}
 }
