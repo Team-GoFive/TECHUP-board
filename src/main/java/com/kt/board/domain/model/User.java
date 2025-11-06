@@ -2,17 +2,25 @@ package com.kt.board.domain.model;
 
 import com.kt.board.constants.Gender;
 import com.kt.board.constants.UserRole;
-import lombok.AllArgsConstructor;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDate;
 
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@Entity
 public class User {
-    private Long id;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    protected Long id;
+
     private String name;
     private String password;
     private Gender gender;
@@ -22,14 +30,12 @@ public class User {
     private LocalDate createdAt;
     private LocalDate updatedAt;
 
-    private User(Long id,
-                 String name,
-                 String password,
-                 Gender gender,
-                 String email,
-                 int age,
-                 UserRole role) {
-        this.id = id;
+    protected User(String name,
+                   String password,
+                   Gender gender,
+                   String email,
+                   int age,
+                   UserRole role) {
         this.name = name;
         this.password = password;
         this.gender = gender;
@@ -40,13 +46,12 @@ public class User {
         this.updatedAt = LocalDate.now();
     }
 
-    public static User create(final Long id,
-                              final String name,
+    public static User create(final String name,
                               final String password,
                               final Gender gender,
                               final String email,
                               final int age,
                               final UserRole role) {
-        return new User(id, name, password, gender, email, age, role);
+        return new User(name, password, gender, email, age, role);
     }
 }
