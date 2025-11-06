@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kt.board.domain.dto.request.PostCreateRequest;
+import com.kt.board.domain.dto.request.PostUpdateRequest;
 import com.kt.board.domain.model.Board;
 import com.kt.board.domain.model.User;
 import com.kt.board.domain.model.post.Post;
@@ -38,5 +39,13 @@ public class PostServiceImpl implements PostService {
 			user
 		);
 		postRepository.save(post);
+	}
+
+	@Transactional
+	@Override
+	public void update(Long postId, PostUpdateRequest request){
+		Post post = postRepository.findById(postId)
+			.orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시글입니다."));
+		post.update(request.title(), request.content(), request.disclosureType());
 	}
 }

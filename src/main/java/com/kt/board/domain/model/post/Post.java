@@ -1,5 +1,6 @@
 package com.kt.board.domain.model.post;
 
+import com.kt.board.domain.dto.request.PostUpdateRequest;
 import com.kt.board.domain.model.Board;
 import com.kt.board.domain.model.User;
 import com.kt.board.domain.model.common.BaseEntity;
@@ -39,5 +40,10 @@ public class Post extends BaseEntity {
 
 	public static Post create(String title, String content, PostDisclosureType disclosureType, Board board, User user) {
 		return new Post(title, content, disclosureType, board, user);
+	}
+	public void update(String title, String content, PostDisclosureType disclosureType) {
+		this.title = title;
+		this.content = content;
+		this.disclosureType = disclosureType;
 	}
 }
