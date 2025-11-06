@@ -37,7 +37,7 @@ public class Post extends BaseEntity {
 	@ManyToOne
 	private User user;
 
-	static Post create(String title, String content, PostDisclosureType disclosureType, Board board, User user) {
+	public static Post create(String title, String content, PostDisclosureType disclosureType, Board board, User user) {
 		return new Post(title, content, disclosureType, board, user);
 	}
 }

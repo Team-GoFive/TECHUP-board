@@ -16,7 +16,7 @@ public class BoardServiceImpl implements BoardService {
 
 	@Transactional
 	@Override
-	public void boardCreate(BoardCreateRequest request) {
+	public void create(BoardCreateRequest request) {
 
 		Board board = Board.create(request.name());
 		boardRepository.save(board);
