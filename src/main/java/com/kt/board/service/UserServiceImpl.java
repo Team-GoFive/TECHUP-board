@@ -15,9 +15,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void create(UserCreateRequest request) {
-        Long userId = userRepository.selectMaxId() + 1;
         User user = User.create(
-                userId,
                 request.name(),
                 request.password(),
                 request.gender(),
