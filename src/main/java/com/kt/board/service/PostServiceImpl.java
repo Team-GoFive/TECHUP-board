@@ -48,4 +48,12 @@ public class PostServiceImpl implements PostService {
 			.orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시글입니다."));
 		post.update(request.title(), request.content(), request.disclosureType());
 	}
+
+	@Transactional
+	@Override
+	public void remove(Long postId){
+		Post post = postRepository.findById(postId)
+			.orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시글입니다."));
+		postRepository.delete(post); // soft delete
+	}
 }
