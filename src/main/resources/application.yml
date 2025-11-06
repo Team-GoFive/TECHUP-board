@@ -6,7 +6,7 @@ spring:
     console:
       enabled: false
   datasource:
-    url: jdbc:mysql://localhost:3306/board
+    url: jdbc:mysql://localhost:3306/board_techup
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: ${SPRING_DATASOURCE_PASSWORD}

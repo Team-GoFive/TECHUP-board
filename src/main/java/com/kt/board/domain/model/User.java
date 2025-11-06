@@ -2,6 +2,7 @@ package com.kt.board.domain.model;
 
 import com.kt.board.constants.Gender;
 import com.kt.board.constants.UserRole;
+import com.kt.board.domain.model.common.BaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,12 +11,10 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Entity
-public class User {
+public class User extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,8 +26,6 @@ public class User {
     private String email;
     private int age;
     private UserRole role;
-    private LocalDate createdAt;
-    private LocalDate updatedAt;
 
     protected User(String name,
                    String password,
@@ -42,8 +39,6 @@ public class User {
         this.email = email;
         this.age = age;
         this.role = role;
-        this.createdAt = LocalDate.now();
-        this.updatedAt = LocalDate.now();
     }
 
     public static User create(final String name,
