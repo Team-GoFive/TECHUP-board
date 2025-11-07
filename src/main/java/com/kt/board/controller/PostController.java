@@ -21,14 +21,15 @@ public class PostController {
 
 	private final PostService postService;
 
-	@PutMapping("/{postid}")
+	@PutMapping("/{postId}")
 	@ResponseStatus(HttpStatus.OK)
-	public void update(@PathVariable Long postid, @RequestBody PostUpdateRequest request) {
-		postService.update(postid, request);
+	public void update(@PathVariable Long postId,
+                       @RequestBody PostUpdateRequest request) {
+		postService.update(postId, request);
 	}
-	@PatchMapping("/{postid}")
+	@PatchMapping("/{postId}")
 	@ResponseStatus(HttpStatus.OK)
-	public void remove(@PathVariable Long postid) {
-		postService.remove(postid);
+	public void remove(@PathVariable Long postId) {
+		postService.remove(postId);
 	}
 }
