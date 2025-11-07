@@ -8,4 +8,5 @@ public interface PostService {
 
 	public void create(Long boardId, PostCreateRequest request);
 	public void update(Long postId, PostUpdateRequest request);
+	public void remove(Long postId);
 }
