@@ -2,7 +2,7 @@ package com.kt.board.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.kt.board.domain.model.Board;
+import com.kt.board.domain.entity.BoardEntity;
 
-public interface BoardRepository extends JpaRepository<Board, Long> {
+public interface BoardRepository extends JpaRepository<BoardEntity, Long> {
 }

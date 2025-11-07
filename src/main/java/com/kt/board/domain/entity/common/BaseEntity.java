@@ -1,4 +1,4 @@
-package com.kt.board.domain.model.common;
+package com.kt.board.domain.entity.common;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -23,7 +23,7 @@ public class BaseEntity {
     @JsonFormat(shape = JsonFormat.Shape.STRING,
             pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
             timezone = "Asia/Seoul")
-    private Instant createdAt;
+    protected Instant createdAt;
 
     @LastModifiedDate
     @Column(nullable = false)
