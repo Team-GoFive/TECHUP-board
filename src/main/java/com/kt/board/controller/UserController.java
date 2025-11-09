@@ -1,11 +1,14 @@
 package com.kt.board.controller;
 
+import com.kt.board.common.api.ApiResult;
 import com.kt.board.domain.dto.request.UserCreateRequest;
 import com.kt.board.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import static com.kt.board.common.api.ApiResult.wrap;
 @RequiredArgsConstructor
 @RequestMapping("/api/users")
 @RestController
@@ -14,8 +17,8 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping
-    @ResponseStatus(HttpStatus.OK)
-    public void create(@RequestBody UserCreateRequest request) {
+    public ResponseEntity<ApiResult<Void>> create(@RequestBody UserCreateRequest request) {
         userService.create(request);
+        return wrap(null);
     }
 }
