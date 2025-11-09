@@ -28,7 +28,7 @@ public class SpringExceptionHandler extends BaseExceptionHandler{
         String details = Arrays.toString(e.getDetailMessageArguments());
         String message = details.split(",", 2)[1].replace("]", "").trim();
         ErrorCode error = ErrorCode.BODY_FIELD_ERROR;
-        String resultMessage = error.getMessage() + error.format(message);
+        String resultMessage = error.format(message);
         return ApiErrorResponse.error(error.getStatus(), resultMessage);
     }
 
