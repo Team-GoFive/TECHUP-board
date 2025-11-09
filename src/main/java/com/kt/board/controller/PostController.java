@@ -1,6 +1,7 @@
 package com.kt.board.controller;
 
 import com.kt.board.common.api.ApiResult;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -26,8 +27,9 @@ public class PostController {
 	private final PostService postService;
 
 	@PutMapping("/{postId}")
-	public ResponseEntity<ApiResult<Void>> update(@PathVariable Long postId,
-                       @RequestBody PostUpdateRequest request) {
+	public ResponseEntity<ApiResult<Void>> update(
+            @PathVariable Long postId,
+            @RequestBody @Valid PostUpdateRequest request) {
 		postService.update(postId, request);
         return wrap(null);
 	}
