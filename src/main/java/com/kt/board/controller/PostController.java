@@ -1,16 +1,11 @@
 package com.kt.board.controller;
 
 import com.kt.board.common.api.ApiResult;
+import com.kt.board.domain.dto.request.ReplyCreateRequest;
+import com.kt.board.service.ReplyService;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.kt.board.domain.dto.request.PostUpdateRequest;
 import com.kt.board.service.PostService;
@@ -25,6 +20,7 @@ import static com.kt.board.common.api.ApiResult.wrap;
 public class PostController {
 
 	private final PostService postService;
+    private final ReplyService replyService;
 
 	@PutMapping("/{postId}")
 	public ResponseEntity<ApiResult<Void>> update(
@@ -33,9 +29,19 @@ public class PostController {
 		postService.update(postId, request);
         return wrap(null);
 	}
+
 	@PatchMapping("/{postId}")
 	public ResponseEntity<ApiResult<Void>> remove(@PathVariable Long postId) {
 		postService.remove(postId);
         return wrap(null);
 	}
+
+    @PostMapping("/{postId}/replies")
+    public ResponseEntity<ApiResult<Void>> createReply(
+            @PathVariable Long postId,
+            @RequestBody @Valid ReplyCreateRequest request) {
+        replyService.create(postId, request);
+        return wrap(null);
+    }
+
 }

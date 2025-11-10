@@ -24,15 +24,18 @@ public class ReplyEntity extends BaseCreatedByEntity {
     private PostEntity parentPost;
 
     protected ReplyEntity(String content,
-                          PostEntity parentPost) {
+                          PostEntity parentPost,
+                          UserEntity createdBy) {
         this.content = content;
         this.parentPost = parentPost;
+        this.createdBy = createdBy;
         this.status = ReplyStatus.ENABLED;
     }
 
     public static ReplyEntity create(final String content,
-                                     final PostEntity parentPost) {
-        return new ReplyEntity(content, parentPost);
+                                     final PostEntity parentPost,
+                                     final UserEntity createdBy) {
+        return new ReplyEntity(content, parentPost, createdBy);
     }
 
 }
