@@ -3,6 +3,7 @@ package com.kt.board.domain.entity;
 import com.kt.board.constants.Gender;
 import com.kt.board.constants.UserRole;
 import com.kt.board.domain.entity.common.BaseEntity;
+import com.kt.board.util.EncryptUtil;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -55,6 +56,7 @@ public class UserEntity extends BaseEntity {
                                     final String email,
                                     final int age,
                                     final UserRole role) {
-        return new UserEntity(name, password, gender, email, age, role);
+        String encryptPassword = EncryptUtil.encode(password);
+        return new UserEntity(name, encryptPassword, gender, email, age, role);
     }
 }
