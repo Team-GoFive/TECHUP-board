@@ -62,9 +62,14 @@ public class PostServiceImpl implements PostService {
 
 	@Transactional
 	@Override
-	public void remove(Long postId){
-		PostEntity postEntity = postRepository.findById(postId)
+	public void remove(Long postId, String authorization){
+		PostEntity post = postRepository.findById(postId)
 			.orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시글입니다."));
-		postRepository.delete(postEntity); // soft delete
+
+		var userId = post.getCreatedBy().getId();
+		if(!tokenStore.isValidToken(userId, authorization)){
+			throw new CustomException(ErrorCode.NOT_ACCEPTABLE);
+		}
+		postRepository.delete(post); // soft delete
 	}
 }
