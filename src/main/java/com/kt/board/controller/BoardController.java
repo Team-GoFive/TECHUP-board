@@ -28,8 +28,8 @@ public class BoardController {
         return wrap(null);
 	}
 
-	@PostMapping("/{boardId}")
-	public ResponseEntity<ApiResult<Void>> create(
+	@PostMapping("/{boardId}/posts")
+	public ResponseEntity<ApiResult<Void>> createPost(
             @PathVariable Long boardId,
             @RequestBody @Valid PostCreateRequest request) {
 		postService.create(boardId, request);
