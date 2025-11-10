@@ -8,9 +8,11 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Getter
 @Entity(name = "\"user\"")
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class UserEntity extends BaseEntity {
 
     @Column(nullable = false)
@@ -20,6 +22,7 @@ public class UserEntity extends BaseEntity {
     private String password;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private Gender gender;
 
     @Column(nullable = false)
@@ -29,6 +32,7 @@ public class UserEntity extends BaseEntity {
     private int age;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private UserRole role;
 
     protected UserEntity(String name,

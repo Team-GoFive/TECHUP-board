@@ -5,14 +5,17 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.kt.board.domain.dto.request.PostCreateRequest;
 import com.kt.board.domain.dto.request.PostUpdateRequest;
 import com.kt.board.service.PostService;
 
@@ -37,9 +40,16 @@ public class PostController {
         return wrap(null);
 	}
 
-	@PatchMapping("/{postId}")
-	public ResponseEntity<ApiResult<Void>> remove(@PathVariable Long postId) {
-		postService.remove(postId);
+	@DeleteMapping("/{postId}")
+	public ResponseEntity<ApiResult<Void>> remove(@PathVariable Long postId, HttpServletRequest servletRequest) {
+		String authorization = servletRequest.getHeader("Authorization");
+		postService.remove(postId, authorization);
         return wrap(null);
+	}
+
+	@PostMapping("/{boardId}")
+	public ResponseEntity<ApiResult<Void>> create(@PathVariable Long boardId, @RequestBody @Valid PostCreateRequest request){
+		postService.create(boardId, request);
+		return wrap(null);
 	}
 }
