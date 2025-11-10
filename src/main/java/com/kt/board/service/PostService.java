@@ -9,6 +9,6 @@ public interface PostService {
 
 	void update(Long postId, PostUpdateRequest request, String authorization);
 
-	void remove(Long postId);
+	void remove(Long postId, String authorization);
 
 }

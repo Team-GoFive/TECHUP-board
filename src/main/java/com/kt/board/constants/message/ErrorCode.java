@@ -12,7 +12,9 @@ public enum ErrorCode {
     BODY_FIELD_ERROR(HttpStatus.BAD_REQUEST, "바디 필드 오류 : {0}"),
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "존재하지 않는 유저입니다."),
     BOARD_NOT_FOUND(HttpStatus.NOT_FOUND, "해당 게시판은 존재하지 않습니다."),
-    POST_NOT_FOUND(HttpStatus.NOT_FOUND, "해당 게시글은 존재하지 않습니다.");
+    POST_NOT_FOUND(HttpStatus.NOT_FOUND, "해당 게시글은 존재하지 않습니다."),
+	  UNAUTHORIZED_ACCESS(HttpStatus.UNAUTHORIZED, "인증 정보가 유효하지 않습니다."),
+	  USER_FORBIDDEN(HttpStatus.FORBIDDEN, "해당 작업을 수행할 권한이 없습니다.");
 
     private final HttpStatus status;
     private final String message;
