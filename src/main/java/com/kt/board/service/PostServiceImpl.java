@@ -1,5 +1,7 @@
 package com.kt.board.service;
 
+import com.kt.board.config.RedisConfig;
+import com.kt.board.redis.TokenStore;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +23,7 @@ public class PostServiceImpl implements PostService {
 	private final PostRepository postRepository;
 	private final BoardRepository boardRepository;
 	private final UserRepository userRepository;
+    private final TokenStore tokenStore;
 
 	@Transactional
 	@Override
@@ -43,10 +46,10 @@ public class PostServiceImpl implements PostService {
 
 	@Transactional
 	@Override
-	public void update(Long postId, PostUpdateRequest request){
-		PostEntity postEntity = postRepository.findById(postId)
-			.orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시글입니다."));
-		postEntity.update(request.title(), request.content(), request.disclosureType());
+	public void update(Long postId, PostUpdateRequest request, String authorization){
+		PostEntity post = postRepository.findById(postId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시글입니다."));
+        post.update(request.title(), request.content(), request.disclosureType());
 	}
 
 	@Transactional

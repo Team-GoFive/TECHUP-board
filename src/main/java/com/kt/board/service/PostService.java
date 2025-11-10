@@ -7,7 +7,7 @@ public interface PostService {
 
     void create(Long boardId, PostCreateRequest request);
 
-	void update(Long postId, PostUpdateRequest request);
+	void update(Long postId, PostUpdateRequest request, String authorization);
 
 	void remove(Long postId);
 

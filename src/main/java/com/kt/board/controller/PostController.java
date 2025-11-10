@@ -1,6 +1,7 @@
 package com.kt.board.controller;
 
 import com.kt.board.common.api.ApiResult;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,10 +30,13 @@ public class PostController {
 	@PutMapping("/{postId}")
 	public ResponseEntity<ApiResult<Void>> update(
             @PathVariable Long postId,
-            @RequestBody @Valid PostUpdateRequest request) {
-		postService.update(postId, request);
+            @RequestBody @Valid PostUpdateRequest request,
+            HttpServletRequest servletRequest) {
+        String authorization = servletRequest.getHeader("Authorization");
+		postService.update(postId, request, authorization);
         return wrap(null);
 	}
+
 	@PatchMapping("/{postId}")
 	public ResponseEntity<ApiResult<Void>> remove(@PathVariable Long postId) {
 		postService.remove(postId);
