@@ -2,25 +2,25 @@ server:
   port: 8080
 
 spring:
-  application:
-    name: board
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+  h2:
+    console:
+      enabled: false
   datasource:
+    url: jdbc:mysql://localhost:3306/techup_board
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/testdb
     username: root
-    password: 1234
-
-
-
-
-
-
-# h2 관련 설정
-#  h2:
-#    console:
-#      enabled: true
-#  datasource:
-#    url: jdbc:h2:~/test
-#    username: sa
-#    password:
-#    driver-class-name: org.h2.Driver
+    password: ${SPRING_DATASOURCE_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+    jdbc:
+      time_zone: Asia/Seoul
+    show_sql: true
