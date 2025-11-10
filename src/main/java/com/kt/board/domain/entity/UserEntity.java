@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @Entity(name = "\"user\"")
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED) // PRIVATE로 다시 수정하기
 public class UserEntity extends BaseEntity {
 
     @Column(nullable = false)

@@ -23,7 +23,7 @@ public class PostEntity extends BaseCreatedByEntity {
 	@Enumerated(EnumType.STRING)
 	private PostDisclosureType disclosureType;
 
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY) // 수정하기
     @JoinColumn(name = "parentBoard", nullable = false)
 	private BoardEntity parentBoard;
 

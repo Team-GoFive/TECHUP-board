@@ -38,8 +38,11 @@ public class PostController {
 	}
 
 	@PatchMapping("/{postId}")
-	public ResponseEntity<ApiResult<Void>> remove(@PathVariable Long postId) {
-		postService.remove(postId);
+	public ResponseEntity<ApiResult<Void>> remove(
+		@PathVariable Long postId,
+		HttpServletRequest servletRequest) {
+		String authorization = servletRequest.getHeader("Authorization");
+		postService.remove(postId,authorization);
         return wrap(null);
 	}
 }
