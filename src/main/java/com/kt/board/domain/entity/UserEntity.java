@@ -3,7 +3,6 @@ package com.kt.board.domain.entity;
 import com.kt.board.constants.Gender;
 import com.kt.board.constants.UserRole;
 import com.kt.board.domain.entity.common.BaseEntity;
-//import com.kt.board.util.EncryptUtil;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
