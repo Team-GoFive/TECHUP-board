@@ -16,27 +16,27 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfiguration {
 
-    @Bean
-    public PasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+	@Bean
+	public PasswordEncoder bCryptPasswordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
-        return configuration.getAuthenticationManager();
-    }
+	@Bean
+	public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
+		return configuration.getAuthenticationManager();
+	}
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+	@Bean
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        http.sessionManagement(
-                session ->
-                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-        ).authorizeHttpRequests(
-                request -> request.anyRequest().permitAll()
-        ).csrf(AbstractHttpConfigurer::disable);
+		http.sessionManagement(
+			session ->
+				session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+		).authorizeHttpRequests(
+			request -> request.anyRequest().permitAll()
+		).csrf(AbstractHttpConfigurer::disable);
 
-        return http.build();
-    }
+		return http.build();
+	}
 
 }
