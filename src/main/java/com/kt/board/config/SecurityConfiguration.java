@@ -22,12 +22,16 @@ public class SecurityConfiguration {
 	}
 
 	@Bean
-	public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
+	public AuthenticationManager authenticationManager(
+		AuthenticationConfiguration configuration
+	) throws Exception {
 		return configuration.getAuthenticationManager();
 	}
 
 	@Bean
-	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+	public SecurityFilterChain securityFilterChain(
+		HttpSecurity http
+	) throws Exception {
 
 		http.sessionManagement(
 			session ->
