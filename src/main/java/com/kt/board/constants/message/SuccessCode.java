@@ -7,10 +7,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum SuccessCode {
 
-    RESULT("ok", "성공");
+	RESULT("ok", "성공");
 
-    private final String code;
-    private final String message;
-
+	private final String code;
+	private final String message;
 
 }

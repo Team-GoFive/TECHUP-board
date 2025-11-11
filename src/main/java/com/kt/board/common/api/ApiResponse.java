@@ -7,8 +7,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public abstract class ApiResponse {
 
-    private final String code;
+	private final String code;
 
-    private final String message;
+	private final String message;
 
 }
