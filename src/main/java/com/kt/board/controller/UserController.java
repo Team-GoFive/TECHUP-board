@@ -1,7 +1,6 @@
 package com.kt.board.controller;
 
 import com.kt.board.common.api.ApiResult;
-import com.kt.board.domain.dto.request.UserCreateRequest;
 import com.kt.board.domain.dto.request.UserRequest;
 import com.kt.board.service.UserService;
 import jakarta.validation.Valid;

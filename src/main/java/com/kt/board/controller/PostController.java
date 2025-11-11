@@ -2,14 +2,12 @@ package com.kt.board.controller;
 
 import com.kt.board.common.api.ApiResult;
 import com.kt.board.domain.dto.request.PostRequest;
-import com.kt.board.domain.dto.request.ReplyCreateRequest;
 import com.kt.board.domain.dto.request.ReplyRequest;
 import com.kt.board.service.ReplyService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.kt.board.domain.dto.request.PostUpdateRequest;
 import com.kt.board.service.PostService;
 
 import lombok.RequiredArgsConstructor;

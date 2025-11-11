@@ -7,7 +7,6 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.kt.board.domain.dto.request.PostCreateRequest;
 import com.kt.board.service.BoardService;
 import com.kt.board.service.PostService;
 

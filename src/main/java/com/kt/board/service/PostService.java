@@ -1,8 +1,6 @@
 package com.kt.board.service;
 
-import com.kt.board.domain.dto.request.PostCreateRequest;
 import com.kt.board.domain.dto.request.PostRequest;
-import com.kt.board.domain.dto.request.PostUpdateRequest;
 
 public interface PostService {
 

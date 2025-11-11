@@ -1,7 +1,6 @@
 package com.kt.board.service;
 
 import com.kt.board.constants.message.ErrorCode;
-import com.kt.board.domain.dto.request.ReplyCreateRequest;
 import com.kt.board.domain.dto.request.ReplyRequest;
 import com.kt.board.domain.entity.PostEntity;
 import com.kt.board.domain.entity.ReplyEntity;
