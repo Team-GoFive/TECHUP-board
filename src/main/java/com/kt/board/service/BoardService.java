@@ -1,9 +1,10 @@
 package com.kt.board.service;
 
 import com.kt.board.domain.dto.request.BoardCreateRequest;
+import com.kt.board.domain.dto.request.BoardRequest;
 import com.kt.board.domain.dto.request.BoardUpdateRequest;
 
 public interface BoardService {
-	void create(BoardCreateRequest request);
-	void update(Long boardId, BoardUpdateRequest request);
+	void create(BoardRequest.Create request);
+	void update(Long boardId, BoardRequest.Update request);
 }

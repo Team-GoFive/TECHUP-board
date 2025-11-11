@@ -2,6 +2,7 @@ package com.kt.board.controller;
 
 import com.kt.board.common.api.ApiResult;
 import com.kt.board.domain.dto.request.UserCreateRequest;
+import com.kt.board.domain.dto.request.UserRequest;
 import com.kt.board.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +18,9 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping
-    public ResponseEntity<ApiResult<Void>> create(@RequestBody @Valid UserCreateRequest request) {
+    public ResponseEntity<ApiResult<Void>> create(
+            @RequestBody @Valid UserRequest.Create request
+    ) {
         userService.create(request);
         return wrap(null);
     }

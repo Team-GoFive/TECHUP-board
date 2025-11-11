@@ -1,7 +1,9 @@
 package com.kt.board.controller;
 
 import com.kt.board.common.api.ApiResult;
+import com.kt.board.domain.dto.request.PostRequest;
 import com.kt.board.domain.dto.request.ReplyCreateRequest;
+import com.kt.board.domain.dto.request.ReplyRequest;
 import com.kt.board.service.ReplyService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +27,7 @@ public class PostController {
 	@PutMapping("/{postId}")
 	public ResponseEntity<ApiResult<Void>> update(
             @PathVariable Long postId,
-            @RequestBody @Valid PostUpdateRequest request) {
+            @RequestBody @Valid PostRequest.Update request) {
 		postService.update(postId, request);
         return wrap(null);
 	}
@@ -39,7 +41,7 @@ public class PostController {
     @PostMapping("/{postId}/replies")
     public ResponseEntity<ApiResult<Void>> createReply(
             @PathVariable Long postId,
-            @RequestBody @Valid ReplyCreateRequest request) {
+            @RequestBody @Valid ReplyRequest.Create request) {
         replyService.create(postId, request);
         return wrap(null);
     }

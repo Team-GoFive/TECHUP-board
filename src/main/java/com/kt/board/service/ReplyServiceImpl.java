@@ -2,6 +2,7 @@ package com.kt.board.service;
 
 import com.kt.board.constants.message.ErrorCode;
 import com.kt.board.domain.dto.request.ReplyCreateRequest;
+import com.kt.board.domain.dto.request.ReplyRequest;
 import com.kt.board.domain.entity.PostEntity;
 import com.kt.board.domain.entity.ReplyEntity;
 import com.kt.board.domain.entity.UserEntity;
@@ -23,7 +24,7 @@ public class ReplyServiceImpl implements ReplyService {
 
     @Override
     @Transactional
-    public void create(Long postId, ReplyCreateRequest request) {
+    public void create(Long postId, ReplyRequest.Create request) {
         PostEntity parentPost = postRepository.findById(postId).orElseThrow(
                 () -> new CustomException(ErrorCode.POST_NOT_FOUND)
         );
