@@ -1,17 +1,18 @@
 package com.kt.board.service;
 
+import com.kt.board.domain.dto.request.PostRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.kt.board.domain.dto.request.PostRequest;
 import com.kt.board.domain.entity.BoardEntity;
-import com.kt.board.domain.entity.PostEntity;
 import com.kt.board.domain.entity.UserEntity;
+import com.kt.board.domain.entity.PostEntity;
 import com.kt.board.repository.BoardRepository;
 import com.kt.board.repository.PostRepository;
 import com.kt.board.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
+
 
 @RequiredArgsConstructor
 @Service
@@ -33,15 +34,15 @@ public class PostServiceImpl implements PostService {
 			request.title(),
 			request.content(),
 			request.disclosureType(),
-			parentBoard,
-			createdBy
+            parentBoard,
+            createdBy
 		);
 		postRepository.save(postEntity);
 	}
 
 	@Transactional
 	@Override
-	public void update(Long postId, PostRequest.Update request) {
+	public void update(Long postId, PostRequest.Update request){
 		PostEntity postEntity = postRepository.findById(postId)
 			.orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시글입니다."));
 		postEntity.update(request.title(), request.content(), request.disclosureType());
@@ -49,7 +50,7 @@ public class PostServiceImpl implements PostService {
 
 	@Transactional
 	@Override
-	public void remove(Long postId) {
+	public void remove(Long postId){
 		PostEntity postEntity = postRepository.findById(postId)
 			.orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시글입니다."));
 		postRepository.delete(postEntity); // soft delete
