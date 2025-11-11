@@ -1,6 +1,6 @@
 package com.kt.board.service;
 
-import com.kt.board.domain.dto.request.UserCreateRequest;
+import com.kt.board.domain.dto.request.UserRequest;
 import com.kt.board.domain.entity.UserEntity;
 import com.kt.board.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +17,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void create(UserCreateRequest request) {
+    public void create(UserRequest.Create request) {
         UserEntity user = UserEntity.create(
                 request.name(),
                 passwordEncoder.encode(request.password()),

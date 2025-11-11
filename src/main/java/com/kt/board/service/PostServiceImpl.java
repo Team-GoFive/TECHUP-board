@@ -1,10 +1,9 @@
 package com.kt.board.service;
 
+import com.kt.board.domain.dto.request.PostRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.kt.board.domain.dto.request.PostCreateRequest;
-import com.kt.board.domain.dto.request.PostUpdateRequest;
 import com.kt.board.domain.entity.BoardEntity;
 import com.kt.board.domain.entity.UserEntity;
 import com.kt.board.domain.entity.PostEntity;
@@ -24,7 +23,7 @@ public class PostServiceImpl implements PostService {
 
 	@Transactional
 	@Override
-	public void create(Long boardId, PostCreateRequest request) {
+	public void create(Long boardId, PostRequest.Create request) {
 		BoardEntity parentBoard = boardRepository.findById(boardId)
 			.orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시판입니다."));
 
@@ -43,7 +42,7 @@ public class PostServiceImpl implements PostService {
 
 	@Transactional
 	@Override
-	public void update(Long postId, PostUpdateRequest request){
+	public void update(Long postId, PostRequest.Update request){
 		PostEntity postEntity = postRepository.findById(postId)
 			.orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시글입니다."));
 		postEntity.update(request.title(), request.content(), request.disclosureType());

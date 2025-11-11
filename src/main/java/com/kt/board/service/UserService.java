@@ -1,8 +1,8 @@
 package com.kt.board.service;
 
-import com.kt.board.domain.dto.request.UserCreateRequest;
+import com.kt.board.domain.dto.request.UserRequest;
 
 public interface UserService {
 
-    void create(UserCreateRequest request);
+    void create(UserRequest.Create request);
 }
