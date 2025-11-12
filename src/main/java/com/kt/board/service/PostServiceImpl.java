@@ -1,9 +1,12 @@
 package com.kt.board.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kt.board.domain.dto.request.PostRequest;
+import com.kt.board.domain.dto.response.PostResponse;
 import com.kt.board.domain.entity.BoardEntity;
 import com.kt.board.domain.entity.PostEntity;
 import com.kt.board.domain.entity.UserEntity;
@@ -53,5 +56,10 @@ public class PostServiceImpl implements PostService {
 		PostEntity postEntity = postRepository.findById(postId)
 			.orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시글입니다."));
 		postRepository.delete(postEntity); // soft delete
+	}
+
+	@Override
+	public Page<PostResponse.Search> getPosts(String keyword, Pageable pageable) {
+		return postRepository.search(pageable, keyword);
 	}
 }
