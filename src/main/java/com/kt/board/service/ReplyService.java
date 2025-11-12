@@ -5,4 +5,6 @@ import com.kt.board.domain.dto.request.ReplyRequest;
 public interface ReplyService {
 
 	void create(Long postId, ReplyRequest.Create request);
+
+	void update(Long replyId, ReplyRequest.Update request);
 }

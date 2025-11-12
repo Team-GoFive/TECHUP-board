@@ -41,4 +41,13 @@ public class ReplyServiceImpl implements ReplyService {
 		);
 		replyRepository.save(reply);
 	}
+
+	@Override
+	@Transactional
+	public void update(Long replyId, ReplyRequest.Update request) {
+		ReplyEntity reply = replyRepository.findById(replyId).orElseThrow(
+			() -> new CustomException(ErrorCode.REPLY_NOT_FOUND)
+		);
+		reply.update(request.content());
+	}
 }
