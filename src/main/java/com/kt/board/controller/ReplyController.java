@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,6 +30,14 @@ public class ReplyController {
 		@RequestBody @Valid ReplyRequest.Update request
 	) {
 		replyService.update(replyId, request);
+		return wrap(null);
+	}
+
+	@DeleteMapping("/{replyId}")
+	public ResponseEntity<ApiResult<Void>> remove(
+		@PathVariable Long replyId
+	) {
+		replyService.remove(replyId);
 		return wrap(null);
 	}
 
