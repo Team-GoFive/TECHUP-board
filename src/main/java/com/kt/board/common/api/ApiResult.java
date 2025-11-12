@@ -1,5 +1,6 @@
 package com.kt.board.common.api;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -30,5 +31,9 @@ public class ApiResult<T> extends ApiResponse {
 					data
 				)
 			);
+	}
+
+	public static <T> ResponseEntity<ApiResult<PageResponse<T>>> page(Page<T> data) {
+		return wrap(new PageResponse<>(data));
 	}
 }
