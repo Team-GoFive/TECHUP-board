@@ -1,5 +1,7 @@
 package com.kt.board.service;
 
+import com.kt.board.constants.ReplyStatus;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -45,9 +47,14 @@ public class ReplyServiceImpl implements ReplyService {
 	@Override
 	@Transactional
 	public void update(Long replyId, ReplyRequest.Update request) {
-		ReplyEntity reply = replyRepository.findById(replyId).orElseThrow(
-			() -> new CustomException(ErrorCode.REPLY_NOT_FOUND)
-		);
+		ReplyEntity reply = replyRepository.findByIdOrThrow(replyId);
 		reply.update(request.content());
+	}
+
+	@Override
+	@Transactional
+	public void remove(Long replyId) {
+		ReplyEntity reply = replyRepository.findByIdOrThrow(replyId);
+		reply.updateStatus(ReplyStatus.REMOVED);
 	}
 }
