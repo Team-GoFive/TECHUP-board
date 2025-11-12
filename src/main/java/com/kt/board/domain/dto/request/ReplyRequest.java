@@ -19,4 +19,14 @@ public class ReplyRequest {
 	) {
 	}
 
+	@Schema(name = "ReplyRequest.Update")
+	public record Update(
+		@NotBlank
+		String content,
+
+		@NotNull
+		Long userId
+	) {
+	}
+
 }

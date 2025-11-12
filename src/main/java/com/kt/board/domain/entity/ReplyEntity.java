@@ -29,6 +29,14 @@ public class ReplyEntity extends BaseCreatedByEntity {
 	@JoinColumn(name = "parentBoard", nullable = false)
 	private PostEntity parentPost;
 
+	public void update(String content) {
+		this.content = content;
+	}
+
+	public void updateStatus(ReplyStatus status) {
+		this.status = status;
+	}
+
 	protected ReplyEntity(
 		String content,
 		PostEntity parentPost,
