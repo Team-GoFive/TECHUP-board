@@ -3,6 +3,7 @@ package com.kt.board.controller;
 import static com.kt.board.common.api.ApiResult.*;
 
 import org.springdoc.core.annotations.ParameterObject;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -65,7 +66,7 @@ public class PostController {
 		@RequestParam(required = false) String all,
 		@ParameterObject Paging paging
 	) {
-		var posts = postService.getPosts(title, contents, all, paging.toPageable());
+		Page<PostResponse.Search> posts = postService.getPosts(title, contents, all, paging.toPageable());
 		return page(posts);
 	}
 
