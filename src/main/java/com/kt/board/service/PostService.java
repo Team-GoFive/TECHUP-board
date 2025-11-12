@@ -14,5 +14,5 @@ public interface PostService {
 
 	void remove(Long postId);
 
-	Page<PostResponse.Search> getPosts(String keyword, Pageable pageable);
+	Page<PostResponse.Search> getPosts(String title, String contents, String all, Pageable pageable);
 }

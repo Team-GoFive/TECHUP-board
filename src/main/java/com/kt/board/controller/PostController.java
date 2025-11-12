@@ -60,11 +60,13 @@ public class PostController {
 
 	@GetMapping
 	public ResponseEntity<ApiResult<PageResponse<PostResponse.Search>>> getPosts(
-		@RequestParam(required = false) String keyword,
+		@RequestParam(required = false) String title,
+		@RequestParam(required = false) String contents,
+		@RequestParam(required = false) String all,
 		@ParameterObject Paging paging
 	) {
-		var posts = postService.getPosts(keyword, paging.toPageable());
+		var posts = postService.getPosts(title, contents, all, paging.toPageable());
 		return page(posts);
 	}
-	
+
 }

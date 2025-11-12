@@ -59,7 +59,12 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public Page<PostResponse.Search> getPosts(String keyword, Pageable pageable) {
-		return postRepository.search(pageable, keyword);
+	public Page<PostResponse.Search> getPosts(
+		String title,
+		String contents,
+		String all,
+		Pageable pageable
+	) {
+		return postRepository.search(title, contents, all, pageable);
 	}
 }

@@ -6,5 +6,5 @@ import org.springframework.data.domain.Pageable;
 import com.kt.board.domain.dto.response.PostResponse;
 
 public interface PostQueryDslRepository {
-	Page<PostResponse.Search> search(Pageable pageable, String keyword);
+	Page<PostResponse.Search> search(String title, String contents, String all, Pageable pageable);
 }

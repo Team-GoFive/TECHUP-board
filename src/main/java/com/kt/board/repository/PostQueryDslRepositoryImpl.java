@@ -1,5 +1,7 @@
 package com.kt.board.repository;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -21,12 +23,14 @@ public class PostQueryDslRepositoryImpl implements PostQueryDslRepository {
 	private final QPostEntity post = QPostEntity.postEntity;
 
 	@Override
-	public Page<PostResponse.Search> search(Pageable pageable, String keyword) {
+	public Page<PostResponse.Search> search(String title, String contents, String all, Pageable pageable) {
 
-		var booleanBuilder = new BooleanBuilder();
-		booleanBuilder.and(containsTitleOrContent(keyword));
+		BooleanBuilder booleanBuilder = new BooleanBuilder();
+		booleanBuilder.and(containsTitle(title));
+		booleanBuilder.and(containsContents(contents));
+		booleanBuilder.and(containsTitleOrContent(all));
 
-		var content = jpaQueryFactory
+		List<PostResponse.Search> content = jpaQueryFactory
 			.select(new QPostResponse_Search(
 				post.id,
 				post.title,
@@ -39,7 +43,7 @@ public class PostQueryDslRepositoryImpl implements PostQueryDslRepository {
 			.limit(pageable.getPageSize())
 			.fetch();
 
-		var total = jpaQueryFactory
+		int total = jpaQueryFactory
 			.select(post.id)
 			.from(post)
 			.where(booleanBuilder)
@@ -47,6 +51,20 @@ public class PostQueryDslRepositoryImpl implements PostQueryDslRepository {
 			.size();
 
 		return new PageImpl<>(content, pageable, total);
+	}
+
+	private BooleanExpression containsTitle(String title) {
+		if (title == null || title.isEmpty()) {
+			return null;
+		}
+		return post.title.containsIgnoreCase(title);
+	}
+
+	private BooleanExpression containsContents(String contents) {
+		if (contents == null || contents.isEmpty()) {
+			return null;
+		}
+		return post.content.containsIgnoreCase(contents);
 	}
 
 	private BooleanExpression containsTitleOrContent(String keyword) {
