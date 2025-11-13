@@ -93,8 +93,8 @@ class PostRepositoryTest {
 		// when
 		PostEntity saved = postRepository.save(post);
 		// then
-		Optional<PostEntity> found = postRepository.findById(saved.getId());
-		assertThat(found).isPresent();
-		assertThat(found.get().getTitle()).isEqualTo(post.getTitle());
+		Optional<PostEntity> foundPost = postRepository.findById(saved.getId());
+		assertThat(foundPost).isPresent();
+		assertThat(foundPost.get().getTitle()).isEqualTo(post.getTitle());
 	}
 }
