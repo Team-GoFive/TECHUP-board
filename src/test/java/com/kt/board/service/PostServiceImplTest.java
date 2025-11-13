@@ -1,11 +1,14 @@
 package com.kt.board.service;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -16,6 +19,7 @@ import com.kt.board.domain.dto.request.PostRequest;
 import com.kt.board.domain.entity.BoardEntity;
 import com.kt.board.domain.entity.PostEntity;
 import com.kt.board.domain.entity.UserEntity;
+import com.kt.board.exception.CustomException;
 import com.kt.board.repository.BoardRepository;
 import com.kt.board.repository.PostRepository;
 import com.kt.board.repository.UserRepository;
@@ -42,10 +46,8 @@ class PostServiceImplTest {
 		userRepository.deleteAll();
 	}
 
-	@Test
-	void 게시글_생성() {
-		// given
-		UserEntity userEntity = userRepository.save(
+	private UserEntity createUser() {
+		return userRepository.save(
 			UserEntity.create(
 				"테스트",
 				"테스트",
@@ -54,21 +56,29 @@ class PostServiceImplTest {
 				1,
 				UserRole.MEMBER
 			));
+	}
 
-		BoardEntity boardEntity = boardRepository.save(
+	private BoardEntity createBoard(UserEntity userEntity) {
+		return boardRepository.save(
 			BoardEntity.create(
 				"테스트게시판",
 				userEntity
 			));
+	}
 
+	@Test
+	void 게시글_생성() {
+		// given
+		UserEntity user = createUser();
+		BoardEntity board = createBoard(user);
 		// when
 		postService.create(
-			boardEntity.getId(),
+			board.getId(),
 			new PostRequest.Create(
 				"title",
 				"content",
 				PostDisclosureType.PUBLIC,
-				userEntity.getId()
+				user.getId()
 			)
 		);
 		// then
@@ -76,6 +86,38 @@ class PostServiceImplTest {
 
 		assertThat(first.isPresent());
 		assertThat(first.get().getTitle()).isEqualTo("title");
+
 	}
+
+	@ParameterizedTest
+	@NullAndEmptySource
+	void 게시글_생성_실패__제목_null_공백(String title) {
+		UserEntity user = createUser();
+		BoardEntity board = createBoard(user);
+
+		assertThrowsExactly(
+			CustomException.class,
+			() -> postService.create(
+				board.getId(),
+				new PostRequest.Create(
+					title,
+					"content",
+					PostDisclosureType.PUBLIC,
+					user.getId()
+				)
+			)
+		);
+	}
+	// @ParameterizedTest
+	// @NullAndEmptySource
+	// void 게시글_생성_실패__제목_null_공백(String title) {
+	// 	Assertions.assertThrowsExactly(IllegalArgumentException.class () -> {
+	// 	})
+	// }
+	//
+	// @Test
+	// void 게시글_수정() {
+	//
+	// }
 
 }

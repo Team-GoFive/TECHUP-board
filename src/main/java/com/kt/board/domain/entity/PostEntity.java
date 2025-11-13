@@ -1,7 +1,11 @@
 package com.kt.board.domain.entity;
 
+import org.apache.logging.log4j.util.Strings;
+
 import com.kt.board.constants.PostDisclosureType;
+import com.kt.board.constants.message.ErrorCode;
 import com.kt.board.domain.entity.common.BaseCreatedByEntity;
+import com.kt.board.exception.CustomException;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -53,9 +57,20 @@ public class PostEntity extends BaseCreatedByEntity {
 		BoardEntity parentBoard,
 		UserEntity createdBy
 	) {
+		validateString(title, ErrorCode.POST_TITLE_IS_EMPTY);
+		validateString(content, ErrorCode.POST_CONTENT_IS_EMPTY);
 		return new PostEntity(
 			title, content, disclosureType, parentBoard, createdBy
 		);
+	}
+
+	public static void validateString(
+		String data,
+		ErrorCode errorCode
+	) {
+		if (Strings.isBlank(data)) {
+			throw new CustomException(errorCode);
+		}
 	}
 
 	public void update(String title, String content, PostDisclosureType disclosureType) {

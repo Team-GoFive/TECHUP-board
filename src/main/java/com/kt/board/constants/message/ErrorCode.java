@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum ErrorCode {
 	BODY_FIELD_ERROR(HttpStatus.BAD_REQUEST, "바디 필드 오류 : {0}"),
+	POST_TITLE_IS_EMPTY(HttpStatus.BAD_REQUEST, "게시글 제목이 누락되었습니다"),
+	POST_CONTENT_IS_EMPTY(HttpStatus.BAD_REQUEST, "게시글 제목이 누락되었습니다"),
 	USER_NOT_FOUND(HttpStatus.NOT_FOUND, "존재하지 않는 유저입니다."),
 	BOARD_NOT_FOUND(HttpStatus.NOT_FOUND, "해당 게시판은 존재하지 않습니다."),
 	POST_NOT_FOUND(HttpStatus.NOT_FOUND, "해당 게시글은 존재하지 않습니다."),
