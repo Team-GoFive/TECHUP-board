@@ -74,6 +74,9 @@ public class PostEntity extends BaseCreatedByEntity {
 	}
 
 	public void update(String title, String content, PostDisclosureType disclosureType) {
+		validateString(title, ErrorCode.POST_TITLE_IS_EMPTY);
+		validateString(content, ErrorCode.POST_CONTENT_IS_EMPTY);
+		
 		this.title = title;
 		this.content = content;
 		this.disclosureType = disclosureType;

@@ -26,7 +26,7 @@ public class PostServiceImpl implements PostService {
 
 	@Transactional
 	@Override
-	public void create(Long boardId, PostRequest.Create request) {
+	public Long create(Long boardId, PostRequest.Create request) {
 
 		BoardEntity parentBoard = boardRepository.findById(boardId)
 			.orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시판입니다."));
@@ -43,6 +43,8 @@ public class PostServiceImpl implements PostService {
 		);
 
 		postRepository.save(postEntity);
+
+		return postEntity.getId();
 	}
 
 	@Transactional
