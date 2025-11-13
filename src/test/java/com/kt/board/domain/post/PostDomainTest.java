@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import com.kt.board.constants.PostDisclosureType;
 import com.kt.board.domain.entity.PostEntity;
@@ -28,12 +29,30 @@ class PostDomainTest {
 
 	@ParameterizedTest
 	@NullAndEmptySource
+	@ValueSource(strings = {" ", "\t", "\n"})
 	void 게시글_생성_실패__제목_blank(String title) {
 		assertThrowsExactly(
 			CustomException.class, () -> {
 				PostEntity.create(
 					title,
 					"테스트 내용",
+					PostDisclosureType.PUBLIC,
+					null,
+					null
+				);
+			}
+		);
+	}
+
+	@ParameterizedTest
+	@NullAndEmptySource
+	@ValueSource(strings = {" ", "\t", "\n"})
+	void 게시글_생성_실패__내용_blank(String content) {
+		assertThrowsExactly(
+			CustomException.class, () -> {
+				PostEntity.create(
+					"테스트 제목",
+					content,
 					PostDisclosureType.PUBLIC,
 					null,
 					null
