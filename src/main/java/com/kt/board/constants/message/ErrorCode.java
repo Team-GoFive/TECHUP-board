@@ -14,7 +14,8 @@ public enum ErrorCode {
 	USER_NOT_FOUND(HttpStatus.NOT_FOUND, "존재하지 않는 유저입니다."),
 	BOARD_NOT_FOUND(HttpStatus.NOT_FOUND, "해당 게시판은 존재하지 않습니다."),
 	POST_NOT_FOUND(HttpStatus.NOT_FOUND, "해당 게시글은 존재하지 않습니다."),
-	REPLY_NOT_FOUND(HttpStatus.NOT_FOUND, "해당 댓글은 존재하지 않습니다.");
+	REPLY_NOT_FOUND(HttpStatus.NOT_FOUND, "해당 댓글은 존재하지 않습니다."),
+	REPLY_EMPTY_CONTENT(HttpStatus.BAD_REQUEST, "댓글 내용이 비어있습니다.");
 
 	private final HttpStatus status;
 	private final String message;
