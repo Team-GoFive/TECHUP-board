@@ -12,11 +12,16 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
+import com.kt.board.common.api.searchtype.PostSearchType;
 import com.kt.board.constants.Gender;
 import com.kt.board.constants.PostDisclosureType;
 import com.kt.board.constants.UserRole;
 import com.kt.board.domain.dto.request.PostRequest;
+import com.kt.board.domain.dto.response.PostResponse;
 import com.kt.board.domain.entity.BoardEntity;
 import com.kt.board.domain.entity.PostEntity;
 import com.kt.board.domain.entity.UserEntity;
@@ -259,6 +264,66 @@ class PostServiceTest {
 		postService.remove(post.getId());
 		// then
 		assertThat(postRepository.findById(post.getId())).isEmpty();
+	}
+
+	@Test
+	@DisplayName("게시글 제목 검색")
+	void 게시글_제목_검색() {
+		// given
+		UserEntity user = createUser();
+		BoardEntity board = createBoard(user);
+		createPost(user, board);
+		createPost(user, board);
+		createPost(user, board);
+		Pageable pageable = PageRequest.of(0, 10);
+
+		// when
+		Page<PostResponse.Search> result = postService.getPosts("tit", PostSearchType.TITLE, pageable);
+
+		// then
+		assertThat(result.getTotalElements()).isEqualTo(3);
+		assertThat(result.getContent().getFirst().title()).contains("tit");
+	}
+
+	@Test
+	@DisplayName("게시글 내용 검색")
+	void 게시글_내용_검색() {
+		// given
+		UserEntity user = createUser();
+		BoardEntity board = createBoard(user);
+		createPost(user, board);
+		createPost(user, board);
+		createPost(user, board);
+		Pageable pageable = PageRequest.of(0, 10);
+
+		// when
+		Page<PostResponse.Search> result = postService.getPosts("con", PostSearchType.CONTENT, pageable);
+
+		// then
+		assertThat(result.getTotalElements()).isEqualTo(3);
+		assertThat(result.getContent().getFirst().content()).contains("con");
+	}
+
+	@Test
+	@DisplayName("게시글 내용+제목 검색")
+	void 게시글_제목_or_내용_검색() {
+		// given
+		UserEntity user = createUser();
+		BoardEntity board = createBoard(user);
+		createPost(user, board);
+		createPost(user, board);
+		createPost(user, board);
+		Pageable pageable = PageRequest.of(0, 10);
+
+		// when
+		Page<PostResponse.Search> result = postService.getPosts("con", PostSearchType.TITLE_OR_CONTENT, pageable);
+
+		// then
+		assertThat(result.getTotalElements()).isEqualTo(3);
+		assertThat(result.getContent().stream()
+			.allMatch(post ->
+				post.title().contains("con") ||
+					post.content().contains("con"))).isTrue();
 	}
 
 }
