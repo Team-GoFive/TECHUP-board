@@ -3,7 +3,10 @@ package com.kt.board.domain.entity;
 import static lombok.AccessLevel.*;
 
 import com.kt.board.constants.BoardStatus;
+import com.kt.board.constants.message.ErrorCode;
 import com.kt.board.domain.entity.common.BaseCreatedByEntity;
+
+import com.kt.board.exception.CustomException;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,6 +14,9 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import org.apache.logging.log4j.util.Strings;
+import org.springframework.util.StringUtils;
 
 @Getter
 @Entity(name = "board")
@@ -31,6 +37,9 @@ public class BoardEntity extends BaseCreatedByEntity {
 	}
 
 	public static BoardEntity create(String name, UserEntity createdBy) {
+		if (!StringUtils.hasText(name)) {
+			throw new CustomException(ErrorCode.BOARD_NAME_REQUIRED);
+		}
 		return new BoardEntity(name, createdBy);
 	}
 
