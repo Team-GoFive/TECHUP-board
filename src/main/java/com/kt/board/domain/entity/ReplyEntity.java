@@ -1,7 +1,11 @@
 package com.kt.board.domain.entity;
 
+import org.apache.logging.log4j.util.Strings;
+
 import com.kt.board.constants.ReplyStatus;
+import com.kt.board.constants.message.ErrorCode;
 import com.kt.board.domain.entity.common.BaseCreatedByEntity;
+import com.kt.board.exception.CustomException;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -30,10 +34,12 @@ public class ReplyEntity extends BaseCreatedByEntity {
 	private PostEntity parentPost;
 
 	public void update(String content) {
+		if ( Strings.isBlank(content) ) throw new CustomException(ErrorCode.REPLY_CONTENT_EMPTY);
 		this.content = content;
 	}
 
 	public void updateStatus(ReplyStatus status) {
+
 		this.status = status;
 	}
 
@@ -53,6 +59,9 @@ public class ReplyEntity extends BaseCreatedByEntity {
 		final PostEntity parentPost,
 		final UserEntity createdBy
 	) {
+		if ( Strings.isBlank(content) ) throw new CustomException(ErrorCode.REPLY_CONTENT_EMPTY);
+		if ( parentPost == null ) throw new CustomException(ErrorCode.POST_NOT_FOUND);
+		if ( createdBy == null ) throw new CustomException(ErrorCode.USER_NOT_FOUND);
 		return new ReplyEntity(content, parentPost, createdBy);
 	}
 
