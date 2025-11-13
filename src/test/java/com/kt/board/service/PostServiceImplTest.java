@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
@@ -67,6 +68,7 @@ class PostServiceImplTest {
 	}
 
 	@Test
+	@DisplayName("게시글 생성")
 	void 게시글_생성() {
 		// given
 		UserEntity user = createUser();
@@ -91,6 +93,7 @@ class PostServiceImplTest {
 
 	@ParameterizedTest
 	@NullAndEmptySource
+	@DisplayName("게시글 생성 실패 제목 공백")
 	void 게시글_생성_실패__제목_null_공백(String title) {
 		UserEntity user = createUser();
 		BoardEntity board = createBoard(user);
@@ -108,16 +111,26 @@ class PostServiceImplTest {
 			)
 		);
 	}
-	// @ParameterizedTest
-	// @NullAndEmptySource
-	// void 게시글_생성_실패__제목_null_공백(String title) {
-	// 	Assertions.assertThrowsExactly(IllegalArgumentException.class () -> {
-	// 	})
-	// }
-	//
-	// @Test
-	// void 게시글_수정() {
-	//
-	// }
+
+	@ParameterizedTest
+	@NullAndEmptySource
+	@DisplayName("게시글 생성 실패 내용 공백")
+	void 게시글_생성_실패__내용_null_공백(String content) {
+		UserEntity user = createUser();
+		BoardEntity board = createBoard(user);
+
+		assertThrowsExactly(
+			CustomException.class,
+			() -> postService.create(
+				board.getId(),
+				new PostRequest.Create(
+					"title",
+					content,
+					PostDisclosureType.PUBLIC,
+					user.getId()
+				)
+			)
+		);
+	}
 
 }
