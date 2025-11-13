@@ -9,13 +9,33 @@ import com.kt.board.domain.entity.UserEntity;
 
 public class PostGenerator {
 
-	public static PostEntity generatePost(String postTitle, BoardEntity board, UserEntity user) {
+	public static PostEntity generatePost(BoardEntity board, UserEntity user) {
 		return PostEntity.create(
 			"title_" + UUID.randomUUID(),
 			"content_" + UUID.randomUUID(),
 			PostDisclosureType.PUBLIC,
 			board,
 			user
+		);
+	}
+
+	public static PostEntity generatePost(UserEntity user) {
+		return PostEntity.create(
+			"title_" + UUID.randomUUID(),
+			"content_" + UUID.randomUUID(),
+			PostDisclosureType.PUBLIC,
+			null,
+			user
+		);
+	}
+
+	public static PostEntity generatePost(BoardEntity board) {
+		return PostEntity.create(
+			"title_" + UUID.randomUUID(),
+			"content_" + UUID.randomUUID(),
+			PostDisclosureType.PUBLIC,
+			board,
+			null
 		);
 	}
 
