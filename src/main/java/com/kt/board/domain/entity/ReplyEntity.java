@@ -1,6 +1,7 @@
 package com.kt.board.domain.entity;
 
 import org.apache.logging.log4j.util.Strings;
+import org.springframework.util.StringUtils;
 
 import com.kt.board.constants.ReplyStatus;
 import com.kt.board.constants.message.ErrorCode;
@@ -34,7 +35,7 @@ public class ReplyEntity extends BaseCreatedByEntity {
 	private PostEntity parentPost;
 
 	public void update(String content) {
-		if ( Strings.isBlank(content) ) throw new CustomException(ErrorCode.REPLY_CONTENT_EMPTY);
+		if ( !StringUtils.hasText(content) ) throw new CustomException(ErrorCode.REPLY_CONTENT_REQUIRED);
 		this.content = content;
 	}
 
@@ -59,7 +60,7 @@ public class ReplyEntity extends BaseCreatedByEntity {
 		final PostEntity parentPost,
 		final UserEntity createdBy
 	) {
-		if ( Strings.isBlank(content) ) throw new CustomException(ErrorCode.REPLY_CONTENT_EMPTY);
+		if ( !StringUtils.hasText(content) ) throw new CustomException(ErrorCode.REPLY_CONTENT_REQUIRED);
 		if ( parentPost == null ) throw new CustomException(ErrorCode.POST_NOT_FOUND);
 		if ( createdBy == null ) throw new CustomException(ErrorCode.USER_NOT_FOUND);
 		return new ReplyEntity(content, parentPost, createdBy);

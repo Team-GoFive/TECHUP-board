@@ -9,7 +9,10 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.NullSource;
 
+import com.kt.board.constants.Gender;
+import com.kt.board.constants.PostDisclosureType;
 import com.kt.board.constants.ReplyStatus;
+import com.kt.board.constants.UserRole;
 import com.kt.board.exception.CustomException;
 
 class ReplyDomainTest {
@@ -20,8 +23,25 @@ class ReplyDomainTest {
 
 	@BeforeEach
 	void setUp() throws Exception {
-		postEntity = new PostEntity();
-		userEntity = new UserEntity();
+		userEntity = UserEntity.create(
+			"테스터1",
+			"test1234",
+			Gender.MALE,
+			"wjdtn747@naver.com",
+			22,
+			UserRole.MEMBER
+		);
+		BoardEntity board = BoardEntity.create(
+			"테스트보드1",
+			userEntity
+		);
+		postEntity = PostEntity.create(
+			"제목1",
+			"내용1",
+			PostDisclosureType.PUBLIC,
+			board,
+			userEntity
+		);
 	}
 
 	@Test
