@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.kt.board.common.api.searchtype.PostSearchType;
 import com.kt.board.domain.dto.request.PostRequest;
 import com.kt.board.domain.dto.response.PostResponse;
 import com.kt.board.domain.entity.BoardEntity;
@@ -60,11 +61,10 @@ public class PostServiceImpl implements PostService {
 
 	@Override
 	public Page<PostResponse.Search> getPosts(
-		String title,
-		String contents,
-		String all,
+		String keyword,
+		PostSearchType searchType,
 		Pageable pageable
 	) {
-		return postRepository.search(title, contents, all, pageable);
+		return postRepository.search(keyword, searchType, pageable);
 	}
 }

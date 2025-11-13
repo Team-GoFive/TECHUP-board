@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.kt.board.common.api.ApiResult;
 import com.kt.board.common.api.PageResponse;
 import com.kt.board.common.api.Paging;
+import com.kt.board.common.api.searchtype.PostSearchType;
 import com.kt.board.domain.dto.request.PostRequest;
 import com.kt.board.domain.dto.request.ReplyRequest;
 import com.kt.board.domain.dto.response.PostResponse;
@@ -61,12 +62,11 @@ public class PostController {
 
 	@GetMapping
 	public ResponseEntity<ApiResult<PageResponse<PostResponse.Search>>> getPosts(
-		@RequestParam(required = false) String title,
-		@RequestParam(required = false) String contents,
-		@RequestParam(required = false) String all,
+		@RequestParam(required = false) String keyword,
+		@RequestParam(required = false) PostSearchType searchType,
 		@ParameterObject Paging paging
 	) {
-		Page<PostResponse.Search> posts = postService.getPosts(title, contents, all, paging.toPageable());
+		Page<PostResponse.Search> posts = postService.getPosts(keyword, searchType, paging.toPageable());
 		return page(posts);
 	}
 

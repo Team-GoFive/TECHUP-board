@@ -3,6 +3,7 @@ package com.kt.board.service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import com.kt.board.common.api.searchtype.PostSearchType;
 import com.kt.board.domain.dto.request.PostRequest;
 import com.kt.board.domain.dto.response.PostResponse;
 
@@ -14,5 +15,5 @@ public interface PostService {
 
 	void remove(Long postId);
 
-	Page<PostResponse.Search> getPosts(String title, String contents, String all, Pageable pageable);
+	Page<PostResponse.Search> getPosts(String keyword, PostSearchType searchType, Pageable pageable);
 }

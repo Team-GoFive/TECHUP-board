@@ -7,6 +7,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
+import com.kt.board.common.api.searchtype.PostSearchType;
 import com.kt.board.domain.dto.response.PostResponse;
 import com.kt.board.domain.dto.response.QPostResponse_Search;
 import com.kt.board.domain.entity.QPostEntity;
@@ -23,12 +24,10 @@ public class PostQueryDslRepositoryImpl implements PostQueryDslRepository {
 	private final QPostEntity post = QPostEntity.postEntity;
 
 	@Override
-	public Page<PostResponse.Search> search(String title, String contents, String all, Pageable pageable) {
+	public Page<PostResponse.Search> search(String keyword, PostSearchType searchType, Pageable pageable) {
 
 		BooleanBuilder booleanBuilder = new BooleanBuilder();
-		booleanBuilder.and(containsTitle(title));
-		booleanBuilder.and(containsContents(contents));
-		booleanBuilder.and(containsTitleOrContent(all));
+		booleanBuilder.and(containsKeywordBySearchType(keyword, searchType));
 
 		List<PostResponse.Search> content = jpaQueryFactory
 			.select(new QPostResponse_Search(
@@ -53,25 +52,16 @@ public class PostQueryDslRepositoryImpl implements PostQueryDslRepository {
 		return new PageImpl<>(content, pageable, total);
 	}
 
-	private BooleanExpression containsTitle(String title) {
-		if (title == null || title.isEmpty()) {
+	private BooleanExpression containsKeywordBySearchType(String keyword, PostSearchType searchType) {
+		if (keyword == null || keyword.isEmpty() || searchType == null) {
 			return null;
 		}
-		return post.title.containsIgnoreCase(title);
+		return switch (searchType) {
+			case TITLE -> post.title.containsIgnoreCase(keyword);
+			case CONTENT -> post.content.containsIgnoreCase(keyword);
+			case TITLE_OR_CONTENT -> post.title.containsIgnoreCase(keyword)
+				.or(post.content.containsIgnoreCase(keyword));
+		};
 	}
 
-	private BooleanExpression containsContents(String contents) {
-		if (contents == null || contents.isEmpty()) {
-			return null;
-		}
-		return post.content.containsIgnoreCase(contents);
-	}
-
-	private BooleanExpression containsTitleOrContent(String keyword) {
-		if (keyword == null || keyword.isEmpty()) {
-			return null;
-		}
-		return post.title.containsIgnoreCase(keyword)
-			.or(post.content.containsIgnoreCase(keyword));
-	}
 }
