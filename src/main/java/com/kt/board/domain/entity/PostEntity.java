@@ -1,6 +1,10 @@
 package com.kt.board.domain.entity;
 
+import org.apache.logging.log4j.util.Strings;
+
+import com.kt.board.common.api.Preconditions;
 import com.kt.board.constants.PostDisclosureType;
+import com.kt.board.constants.message.ErrorCode;
 import com.kt.board.domain.entity.common.BaseCreatedByEntity;
 
 import jakarta.persistence.Column;
@@ -39,6 +43,7 @@ public class PostEntity extends BaseCreatedByEntity {
 		BoardEntity parentBoard,
 		UserEntity createdBy
 	) {
+
 		this.title = title;
 		this.content = content;
 		this.disclosureType = disclosureType;
@@ -53,6 +58,9 @@ public class PostEntity extends BaseCreatedByEntity {
 		BoardEntity parentBoard,
 		UserEntity createdBy
 	) {
+		Preconditions.validate(Strings.isBlank(title), ErrorCode.POST_TITLE_REQUIRED);
+		Preconditions.validate(Strings.isBlank(content), ErrorCode.POST_CONTENT_REQUIRED);
+
 		return new PostEntity(
 			title, content, disclosureType, parentBoard, createdBy
 		);
