@@ -1,6 +1,6 @@
 package com.kt.board.domain.entity;
 
-import org.apache.logging.log4j.util.Strings;
+import org.springframework.util.StringUtils;
 
 import com.kt.board.common.api.Preconditions;
 import com.kt.board.constants.PostDisclosureType;
@@ -58,8 +58,9 @@ public class PostEntity extends BaseCreatedByEntity {
 		BoardEntity parentBoard,
 		UserEntity createdBy
 	) {
-		Preconditions.validate(Strings.isBlank(title), ErrorCode.POST_TITLE_REQUIRED);
-		Preconditions.validate(Strings.isBlank(content), ErrorCode.POST_CONTENT_REQUIRED);
+		Preconditions.validate(StringUtils.hasText(title), ErrorCode.POST_TITLE_REQUIRED);
+		Preconditions.validate(StringUtils.hasText(content), ErrorCode.POST_CONTENT_REQUIRED);
+		Preconditions.validate(disclosureType != null, ErrorCode.POST_DISCLOSURE_TYPE_REQUIRED);
 
 		return new PostEntity(
 			title, content, disclosureType, parentBoard, createdBy
