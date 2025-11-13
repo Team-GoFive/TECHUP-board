@@ -25,8 +25,7 @@ import com.kt.board.domain.entity.ReplyEntity;
 import com.kt.board.domain.entity.UserEntity;
 import com.kt.board.exception.CustomException;
 
-// @Transactional
-
+@Transactional
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ActiveProfiles("test")
