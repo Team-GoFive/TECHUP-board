@@ -1,7 +1,11 @@
 package com.kt.board.domain.entity;
 
+import org.springframework.util.StringUtils;
+
 import com.kt.board.constants.ReplyStatus;
+import com.kt.board.constants.message.ErrorCode;
 import com.kt.board.domain.entity.common.BaseCreatedByEntity;
+import com.kt.board.exception.CustomException;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -30,6 +34,9 @@ public class ReplyEntity extends BaseCreatedByEntity {
 	private PostEntity parentPost;
 
 	public void update(String content) {
+		if (!StringUtils.hasText(content)) {
+			throw new CustomException(ErrorCode.REPLY_EMPTY_CONTENT);
+		}
 		this.content = content;
 	}
 
