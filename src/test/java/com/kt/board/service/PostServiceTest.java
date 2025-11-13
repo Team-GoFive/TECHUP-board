@@ -26,7 +26,7 @@ import com.kt.board.repository.PostRepository;
 import com.kt.board.repository.UserRepository;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class PostServiceImplTest {
+class PostServiceTest {
 
 	@Autowired
 	private PostService postService;
