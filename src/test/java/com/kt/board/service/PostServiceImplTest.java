@@ -246,4 +246,19 @@ class PostServiceImplTest {
 				)
 		);
 	}
+
+	@Test
+	@DisplayName("게시글 삭제")
+	void 게시글_삭제() {
+
+		// given
+		UserEntity user = createUser();
+		BoardEntity board = createBoard(user);
+		PostEntity post = createPost(user, board);
+		// when
+		postService.remove(post.getId());
+		// then
+		assertThat(postRepository.findById(post.getId())).isEmpty();
+	}
+
 }
