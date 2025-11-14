@@ -21,12 +21,13 @@ public class SpringExceptionHandler extends BaseExceptionHandler {
 
 	@ExceptionHandler(CustomException.class)
 	public ResponseEntity<ApiErrorResponse> customException(BaseException ex) {
+		log.info("ex message : {}", ex.error().getMessage());
 		return toResponse(ex);
 	}
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<ApiErrorResponse> methodArgumentNotValidException(MethodArgumentNotValidException e) {
-		e.printStackTrace();
+		log.warn("[MethodArgumentNotValidException] message={}", e.getMessage());
 		String details = Arrays.toString(e.getDetailMessageArguments());
 		String message = details.split(",", 2)[1].replace("]", "").trim();
 		ErrorCode error = ErrorCode.BODY_FIELD_ERROR;
