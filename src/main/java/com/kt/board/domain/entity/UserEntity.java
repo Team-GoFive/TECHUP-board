@@ -76,9 +76,9 @@ public class UserEntity extends BaseEntity {
 		final UserRole role) {
 		ValidationUtil.validateNotBlank(name, "유저이름");
 		ValidationUtil.validateNotBlank(encodedPassword, "유저 비밀번호");
-		ValidationUtil.validateNotNull(gender.toString(), "유저 성별");
+		ValidationUtil.validationNotNullEnum(gender, "유저 성별");
 		ValidationUtil.validateNotBlank(email, "유저 이메일");
 		ValidationUtil.validatePositive(age, "유저 나이");
-		ValidationUtil.validateNotNull(role.toString(), "유저 권한");
+		ValidationUtil.validationNotNullEnum(role, "유저 권한");
 	}
 }
