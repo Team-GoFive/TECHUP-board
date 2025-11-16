@@ -5,6 +5,8 @@ import static lombok.AccessLevel.*;
 import com.kt.board.constants.BoardStatus;
 import com.kt.board.domain.entity.common.BaseCreatedByEntity;
 
+import com.kt.board.util.ValidationUtil;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -31,6 +33,7 @@ public class BoardEntity extends BaseCreatedByEntity {
 	}
 
 	public static BoardEntity create(String name, UserEntity createdBy) {
+		ValidationUtil.validateNotBlank(name, "게시판명");
 		return new BoardEntity(name, createdBy);
 	}
 
