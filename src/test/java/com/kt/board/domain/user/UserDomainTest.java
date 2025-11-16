@@ -20,7 +20,7 @@ public class UserDomainTest {
 	@Test
 	void 유저_객체_생성_성공() {
 		UserEntity.create(
-			" ",
+			"황테스트",
 			passwordEncoder.encode("123123!"),
 			Gender.MALE,
 			"test@email.com",
@@ -45,7 +45,7 @@ public class UserDomainTest {
 	}
 
 	@Test
-	void 유저_객체_생성_실패_비밀번호_60자_이하() {
+	void 유저_객체_생성_실패_비밀번호_60자_미만() {
 		//$2a$10$D4TNRLjLI7RbZF7rwp8Pa.VlNaijLkVzeEpUcDEMH0KZKjMShIb5a <- 정상 비밀번호 길이
 		assertThrowsExactly(
 			FieldValidationException.class, () ->

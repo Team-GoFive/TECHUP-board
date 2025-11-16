@@ -15,7 +15,6 @@ public class ValidationUtil {
 	static final String NOT_BLANK_MESSAGE = "{0}은(는) 비어 있을 수 없습니다.";
 	static final String NOT_NULL_MESSAGE = "{0}은(는) null 일 수 없습니다.";
 	static final String PASSWORD_MIN_LENGTH_MESSAGE = "은(는) 60자 이상이여야 합니다";
-	static final String INVALID_ENUM_VALUE_MESSAGE = "{0} 값이 유효하지 않습니다. 허용값 {1}";
 
 	public static void validateNotBlank(String value, String fieldName) {
 		if (!StringUtils.hasText(value)) {
