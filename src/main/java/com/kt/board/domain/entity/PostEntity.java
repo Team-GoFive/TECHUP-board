@@ -3,6 +3,8 @@ package com.kt.board.domain.entity;
 import com.kt.board.constants.PostDisclosureType;
 import com.kt.board.domain.entity.common.BaseCreatedByEntity;
 
+import com.kt.board.util.ValidationUtil;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -53,6 +55,9 @@ public class PostEntity extends BaseCreatedByEntity {
 		BoardEntity parentBoard,
 		UserEntity createdBy
 	) {
+		ValidationUtil.validateNotBlank(title, "게시글 제목");
+		ValidationUtil.validateNotBlank(content, "게시글 내용");
+		ValidationUtil.validationNotNullEnum(disclosureType, "게시글 공개여부");
 		return new PostEntity(
 			title, content, disclosureType, parentBoard, createdBy
 		);
