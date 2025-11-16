@@ -3,6 +3,8 @@ package com.kt.board.domain.entity;
 import com.kt.board.constants.ReplyStatus;
 import com.kt.board.domain.entity.common.BaseCreatedByEntity;
 
+import com.kt.board.util.ValidationUtil;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -53,6 +55,7 @@ public class ReplyEntity extends BaseCreatedByEntity {
 		final PostEntity parentPost,
 		final UserEntity createdBy
 	) {
+		ValidationUtil.validateNotBlank(content, "댓글 내용");
 		return new ReplyEntity(content, parentPost, createdBy);
 	}
 
