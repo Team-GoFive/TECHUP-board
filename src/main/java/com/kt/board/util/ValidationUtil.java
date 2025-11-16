@@ -34,9 +34,9 @@ public class ValidationUtil {
 		}
 	}
 
-	public static void validateNotNull(String value, String fieldName) {
+	public static <E extends Enum<E>> void validationNotNullEnum(E value, String fieldName) {
 		if (value == null) {
-			String errorMessage = fieldName + NOT_NULL_MESSAGE;
+			String errorMessage = getFormatterMessage(fieldName, NOT_NULL_MESSAGE);
 			throw new FieldValidationException(
 				ErrorCode.INVALID_DOMAIN_FIELD, errorMessage
 			);
